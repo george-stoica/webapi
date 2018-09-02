@@ -1,0 +1,44 @@
+plugins {
+    id 'java-library'
+}
+
+group 'george.stoica'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 10
+
+repositories {
+    mavenCentral()
+}
+
+ext.moduleName = 'george.stoica.webapi.startup'
+
+compileJava {
+    inputs.property("moduleName", moduleName)
+
+    doFirst {
+        options.compilerArgs = [
+                '--module-path', classpath.asPath,
+        ]
+        classpath = files()
+    }
+}
+
+compileTestJava {
+    inputs.property("noduleName", moduleName)
+
+    doFirst {
+        options.compilerArgs = [
+                '--modulePath', classpath.asPath,
+                '--add-modules', 'junit',
+                '--add-reads', '$moduleName=junit',
+                '--patch-module', '$moduleName=' + files(sourceSets.test.java.srcDirs).asPath
+        ]
+
+        classpath = files()
+    }
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
