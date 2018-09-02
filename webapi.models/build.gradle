@@ -11,19 +11,8 @@ repositories {
     mavenCentral()
 }
 
-ext.moduleName = 'george.stoica.webapi.models'
-
-compileJava {
-    inputs.property("moduleName", moduleName)
-
-    doFirst {
-        options.compilerArgs = [
-                '--module-path', classpath.asPath,
-        ]
-        classpath = files()
-    }
-}
-
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
+
+ext.moduleName = 'george.stoica.webapi.models'

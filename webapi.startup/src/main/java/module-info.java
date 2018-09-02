@@ -1,6 +1,6 @@
 /**
  * Created on 2/9/2018.
  */
-module webapi.startup.main {
-    exports george.stoica.webapi.startup;
+module george.stoica.webapi.startup {
+    requires george.stoica.webapi.models;
 }
