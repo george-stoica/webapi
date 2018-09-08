@@ -3,4 +3,5 @@
  */
 module george.stoica.webapi.models {
     exports george.stoica.webapi.models;
+    exports george.stoica.webapi.models.response;
 }

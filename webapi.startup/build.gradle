@@ -1,6 +1,22 @@
-plugins {
-    id 'java'
-    id 'application'
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.3.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+bootJar {
+    baseName = 'gs-spring-boot'
+    version =  '0.1.0'
 }
 
 import java.util.regex.Matcher
@@ -8,16 +24,24 @@ import java.util.regex.Matcher
 group 'george.stoica'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = 10
-
 repositories {
-    mavenCentral()
+    jcenter()
 }
+
+sourceCompatibility = 10
 
 dependencies {
     implementation project(':webapi.models')
+    implementation ('org.springframework.boot:spring-boot-starter-web') {
+        exclude module: "spring-boot-starter-tomcat"
+
+        // exclude javax.annotation package. this package is being imported by undertow as well
+        // causing a compile time conflict.
+        exclude group: 'javax.annotation', module: 'javax.annotation-api'
+    }
+    implementation 'org.springframework.boot:spring-boot-starter-undertow'
+
     testCompileOnly group: 'junit', name: 'junit', version: '4.12'
-    //testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
 ext.moduleName = 'george.stoica.webapi.startup'
