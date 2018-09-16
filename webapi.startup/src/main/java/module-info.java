@@ -1,7 +1,7 @@
 /**
  * Created on 2/9/2018.
  */
-module george.stoica.webapi.startup {
+open module george.stoica.webapi.startup {
     requires george.stoica.webapi.models;
 
     requires spring.beans;
@@ -15,9 +15,5 @@ module george.stoica.webapi.startup {
     requires org.hibernate.validator;
     requires java.validation;
     requires java.sql;
-
-    // open modules for spring
-    opens george.stoica.webapi.config;
-    opens george.stoica.webapi.controller;
-    opens george.stoica.webapi.startup;
+    requires slf4j.api;
 }
