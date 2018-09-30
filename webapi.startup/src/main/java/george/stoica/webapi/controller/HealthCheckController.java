@@ -19,14 +19,14 @@ import java.util.concurrent.CompletableFuture;
 public class HealthCheckController {
     private static Logger logger = LoggerFactory.getLogger("george.stoica.webapi.controller.HealthCheckController");
 
-    @Value("${test.port}")
-    private int port;
+//    @Value("${test.port}")
+//    private int port;
 
     @GetMapping("/status")
     @Async
     public CompletableFuture<HealthCheckResponse> GetStatus() {
 
-        logger.info("Received Health check request: {}", port);
+        logger.info("Received Health check request.");
 
         return CompletableFuture.completedFuture(new HealthCheckResponse(true));
     }

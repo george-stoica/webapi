@@ -14,12 +14,18 @@ subprojects {
         }
 
         compileTestJava {
+//            println "COmpileTestJava: ModuleName " + moduleName
+
             inputs.property("moduleName", moduleName)
             doFirst {
+                println "COmpileTestjava: classpath " + classpath.asPath
+
                 options.compilerArgs = [
                         '--module-path', classpath.asPath,
-                        '--add-modules', 'junit',
-                        '--add-reads', "$moduleName=junit",
+//                        '--add-modules', 'org.springframework.boot:spring-boot-starter-test',
+//                        '--add-reads', "$moduleName=org.springframework.boot:spring-boot-starter-test",
+                        //'--add-modules', 'junit',
+                        //'--add-reads', "$moduleName=junit",
                         '--patch-module', "$moduleName=" + files(sourceSets.test.java.srcDirs).asPath,
                 ]
                 classpath = files()
@@ -32,7 +38,8 @@ subprojects {
                 jvmArgs = [
                         '--module-path', classpath.asPath,
                         '--add-modules', 'ALL-MODULE-PATH',
-                        '--add-reads', "$moduleName=junit",
+//                        '--add-reads', "$moduleName=org.springframework.boot:spring-boot-starter-test",
+                        //'--add-reads', "$moduleName=junit",
                         '--patch-module', "$moduleName=" + files(sourceSets.test.java.outputDir).asPath,
                 ]
                 classpath = files()
